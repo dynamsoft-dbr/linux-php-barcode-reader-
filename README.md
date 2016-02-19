@@ -54,8 +54,14 @@ The sample demonstrates how to make PHP barcode reader on Ubuntu 14.04 with DBR 
     phpize
     ./configure
     make
+    sudo make install
     ```
-7. Run **reader.php**:
+7. Edit **php.ini-production**:
+
+    ```
+    extension=/usr/lib/php5/20121212/dbr.so
+    ```
+8. Run **reader.php**:
     
     ```
     php -c /usr/share/php5/php.ini-production reader.php
