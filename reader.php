@@ -9,7 +9,7 @@ if (file_exists($filename)) {
    * Return Values:
    * If barcode detected, $array[0] is an array.
    */
-  $resultArray = DecodeBarcodeFile($filename, false);
+  $resultArray = DecodeBarcodeFile($filename, 0);
   if (is_array($resultArray[0])) {
 	$resultCount = count($resultArray);
 	echo "Total count: $resultCount\n";

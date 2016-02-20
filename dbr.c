@@ -1,23 +1,3 @@
-/*
-  +----------------------------------------------------------------------+
-  | PHP Version 5                                                        |
-  +----------------------------------------------------------------------+
-  | Copyright (c) 1997-2013 The PHP Group                                |
-  +----------------------------------------------------------------------+
-  | This source file is subject to version 3.01 of the PHP license,      |
-  | that is bundled with this package in the file LICENSE, and is        |
-  | available through the world-wide-web at the following url:           |
-  | http://www.php.net/license/3_01.txt                                  |
-  | If you did not receive a copy of the PHP license and are unable to   |
-  | obtain it through the world-wide-web, please send a note to          |
-  | license@php.net so we can mail you a copy immediately.               |
-  +----------------------------------------------------------------------+
-  | Author:                                                              |
-  +----------------------------------------------------------------------+
-*/
-
-/* $Id$ */
-
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
@@ -189,21 +169,15 @@ PHP_FUNCTION(DecodeBarcodeFile)
 
 	// Get Barcode image path
 	char* pFileName = NULL;
-	bool isNativeOuput = false;
-	bool isLogOn = false;
+	int barcodeType = 0;
 	int iLen = 0;
 
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "sb|b", &pFileName, &iLen, &isNativeOuput, &isLogOn) == FAILURE) {
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "sl", &pFileName, &iLen, &barcodeType) == FAILURE) {
         RETURN_STRING("Invalid parameters", true);
     }
-
-	if (isLogOn)
-	{
-		printf("params: %s, %d, %d\n", pFileName, iLen, isNativeOuput);
-	}
 	
 	// Dynamsoft Barcode Reader: init
-	__int64 llFormat = (OneD | QR_CODE | PDF417 | DATAMATRIX);
+	__int64 llFormat = barcodeType > 0 ? barcodeType : (OneD | QR_CODE | PDF417 | DATAMATRIX);
 	int iMaxCount = 0x7FFFFFFF;
 	int iIndex = 0;
 	ReaderOptions ro = {0};
@@ -254,16 +228,6 @@ PHP_FUNCTION(DecodeBarcodeFile)
 
 		// Dynamsoft Barcode Reader: release memory
 		DBR_FreeBarcodeResults(&pResults);
-
-		if (isLogOn && isNativeOuput)
-		{
-			printf("Native result: %s\n", result);
-		}
-
-		if (isNativeOuput)
-		{
-			add_next_index_string(return_value, result, true);
-		}
 	}
 	else
 	{
@@ -271,19 +235,4 @@ PHP_FUNCTION(DecodeBarcodeFile)
 	}
 
 }
-/* }}} */
-/* The previous line is meant for vim and emacs, so it can correctly fold and 
-   unfold functions in source code. See the corresponding marks just before 
-   function definition, where the functions purpose is also documented. Please 
-   follow this convention for the convenience of others editing your code.
-*/
 
-
-/*
- * Local variables:
- * tab-width: 4
- * c-basic-offset: 4
- * End:
- * vim600: noet sw=4 ts=4 fdm=marker
- * vim<600: noet sw=4 ts=4
- */

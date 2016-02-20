@@ -1,0 +1,52 @@
+* { margin: 0; padding: 0; }
+html { color: #606060; font-family: OpenSans-Regular; height: 100%; }
+body { font-size: 16px; line-height: 26px; height: 100%; }
+ul, li { list-style: none; }
+.hidden { display: none; }
+/*contant*/
+html { background: #eee; }
+#dbr-php { width: 650px; padding: 30px 0; height: auto; min-height: 500px; margin: 0 auto; background: #fff; border: solid 1px #ddd; margin-top: 50px; box-shadow:1px 1px 3px #ddd; }
+h1 { text-align:center; font-size:26px; line-height:39px; margin-bottom:30px; color:#444;}
+.step { position: relative; padding: 15px 0 30px 60px; }
+.step .num { position: absolute; top: 13px; left: 13px; display: inline-block; width: 30px; height: 30px; border: solid 1px #acacac; border-radius: 30px; background: #fff; line-height: 30px; text-align: center; }
+.step3 .num { top: 17px; }
+.step h4 { color: #444; font-family: OpenSans-Semibold; }
+a#readBarcode { display: inline-block; width: 125px; height: 37px; line-height: 37px; text-align: center; color: #fff; font-size: 14px; background: url(../images/bg-recognize-125x37.png) no-repeat left top; cursor: pointer; }
+a#readBarcode:visited { background-position: left -80px; }
+a#readBarcode:hover { background-position: left -40px; }
+a#readBarcode:active { background-position: left -80px; }
+#resultBox { width: 480px; height: 200px; padding: 0 8px; margin-top: 20px; font-size: 14px; overflow: auto; text-align: left; border: solid 1px #ccc; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; }
+ul.barcodeType { height: 100px; }
+ul.barcodeType li { float: left; margin-right: 30px; text-align: center; }
+ul.barcodeType li .imgWrapper { display:inline-block; border:solid 1px #fff; padding:3px; border:solid 1px #fff;}
+ul.barcodeType li.on .imgWrapper{ border: solid 1px #fe8e14; }
+ul.barcodeType input[type='checkbox'] { height: 15px; width: 15px; margin-right: 5px; vertical-align: text-bottom; }
+ul.barcodeType label { display: block; cursor:pointer; }
+.step1 { height: 120px; }
+.step1 a { position: absolute; top: 108px; right: 100px; display: inline-block; line-height: 22px; color: #61c2ec; text-decoration: none; border-bottom: solid 1px #61c2ec; }
+#fileUpload h4, #fileDownload h4 { padding-bottom: 10px; }
+#fileUpload input[type='file'] { position: absolute; z-index: 2; left: 60px; top: 51px; width: 480px; height: 36px; font-size: 25px; cursor: pointer; border: solid 1px #aaa; opacity: 0; }
+#fileUpload input[type='button'] { float: left; width: 80px; height: 40px; position: relative; left: -3px; border: none; outline: none; cursor: pointer; background: url(../images/bg-browse-80x40.png) no-repeat center top; }
+#fileUpload input[type='button']:visited { background-position: center -80px; }
+#fileUpload input[type='button']:hover { background-position: center -40px; }
+#fileUpload input[type='button']:active { background-position: center -80px; }
+#fileUpload input[type='text'] { float: left; width: 410px; height: 36px; border: solid 1px #ccc; border-right: none; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; }
+#fileDownload { width: 400px; }
+#fileDownload input[type='text'] { float: left; width: 480px; height: 36px; padding-left: 5px; border: solid 1px #ccc; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; outline: none; }
+#fileDownload input[type='button'] { float: left; width: 105px; height: 40px; border: none; cursor: pointer; outline: none; margin-top: 15px; background: url(../images/bg-download-105x37.png) no-repeat left top; }
+#fileDownload input[type='button']:visited { background-position: left -80px; }
+#fileDownload input[type='button']:hover { background-position: left -40px; }
+#fileDownload input[type='button']:active { background-position: left -80px; }
+
+.ks-overlay { position: absolute; left: -9999px; top: -9999px; }
+.ks-ext-close { padding: 0 20px; position: absolute; right: -5px; top: 5px; }
+.ks-ext-close, .ks-ext-close:link { color: #2222AA; text-decoration: none; cursor: pointer; }
+.ks-ext-mask { background: #999; filter: alpha(opacity=70); /* IE */ -moz-opacity: 0.7; /* Moz + FF */ opacity: 0.7; /* CSS3 e.g. FF 1.5 */ }
+.D-dailog .ks-ext-close .ks-ext-close-x { height: 8px; }
+.D-dailog .ks-ext-close, .D-dailog .ks-ext-close:hover { background: none; border: none; }
+.D-dailog { position: absolute; left: -9999px; top: -99999px; margin: 100px auto; padding: 0; width: 392px; height: 242px; background-color: #F1F2F2; }
+.D-dailog .D-dailog-body { width: 350px; height: 80px; position: relative; top: 5px; left: 5px; margin: 0; background-color: #ffffff; border: 1px solid #E7E7E7; padding: 15px; }
+.D-dailog .D-dailog-body-Recognition { width: 193px; height: 218px; position: relative; top: 5px; left: 5px; margin: 0; background-color: #ffffff; border: 1px solid #E7E7E7; padding: 15px; }
+.D-dailog a { text-decoration: none; }
+.link { text-decoration: underline; }
+.D-dailog ul { margin: 10px 0 10px 20px; list-style-type: disc; }
