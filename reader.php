@@ -4,7 +4,7 @@ if (file_exists($filename)) {
   echo "Barcode file: $filename \n";
   /*
    * Description:
-   * array DecodeBarcodeFile( string $filename , bool $isNativeOutput [, bool $isLogOn ] )
+   * array DecodeBarcodeFile( string $filename , bool $type )
    *
    * Return Values:
    * If barcode detected, $array[0] is an array.
