@@ -124,7 +124,13 @@ Get the [source code][3] and deploy it to any web server.
     ```
 5. Visit **http://localhost/reader.php**.
 
+## Blog
+* [How to Make PHP Barcode Reader on Linux][4]
+* [How to Deploy PHP Code to Apache and Nginx on Ubuntu 14.04][5]
+
 [1]:http://labs.dynamsoft.com/linux-barcode-reader-overview.htm
 [2]:http://php.net/downloads.php
 [3]:https://github.com/dynamsoftlabs/linux-php-barcode-reader-/tree/master/reader
+[4]:http://www.codepool.biz/linux-php-barcode-reader.html
+[5]:http://www.codepool.biz/deploy-php-nginx-apache-ubuntu.html
 
