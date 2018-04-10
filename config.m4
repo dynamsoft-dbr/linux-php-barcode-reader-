@@ -44,24 +44,20 @@ if test "$PHP_DBR" != "no"; then
   dnl PHP_ADD_INCLUDE($DBR_DIR/include)
 
   dnl # --with-dbr -> check for lib and symbol presence
-  dnl LIBNAME=dbr # you may want to change this
-  dnl LIBSYMBOL=dbr # you most likely want to change this 
+  LIBNAME=DynamsoftBarcodeReader
+  LIBSYMBOL=DBR_CreateInstance
 
-  dnl PHP_CHECK_LIBRARY($LIBNAME,$LIBSYMBOL,
-  dnl [
-  dnl   PHP_ADD_LIBRARY_WITH_PATH($LIBNAME, $DBR_DIR/lib, DBR_SHARED_LIBADD)
-  dnl   AC_DEFINE(HAVE_DBRLIB,1,[ ])
-  dnl ],[
-  dnl   AC_MSG_ERROR([wrong dbr lib version or lib not found])
-  dnl ],[
-  dnl   -L$DBR_DIR/lib -lm
-  dnl ])
-  dnl
-  dnl PHP_SUBST(DBR_SHARED_LIBADD)
-
-  PHP_ADD_LIBRARY_WITH_PATH(DynamsoftBarcodeReaderx64, /home/xiao/Dynamsoft/BarcodeReader4.0/Redist, DBR_SHARED_LIBADD)  
-
-  PHP_ADD_INCLUDE(/home/xiao/Dynamsoft/BarcodeReader4.0/Include)
+  PHP_CHECK_LIBRARY($LIBNAME,$LIBSYMBOL,
+  [
+  PHP_ADD_LIBRARY_WITH_PATH($LIBNAME, /usr/lib, DBR_SHARED_LIBADD)
+  AC_DEFINE(HAVE_DBRLIB,1,[ ])
+  ],[
+  AC_MSG_ERROR([wrong dbr lib version or lib not found])
+  ],[
+  -L$DBR_DIR/$PHP_LIBDIR -lm
+  ])
+  
   PHP_SUBST(DBR_SHARED_LIBADD)
+  PHP_ADD_INCLUDE(/opt/dynamsoft/dbr/include)
   PHP_NEW_EXTENSION(dbr, dbr.c, $ext_shared)
 fi

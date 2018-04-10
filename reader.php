@@ -1,5 +1,6 @@
 <?php
-$filename = "/home/xiao/Dynamsoft/BarcodeReader4.0/Images/AllSupportedBarcodeTypes.tif";
+
+$filename = "/opt/dynamsoft/dbr/images/AllSupportedBarcodeTypes.tif";
 if (file_exists($filename)) {
   echo "Barcode file: $filename \n";
   /*
@@ -10,7 +11,7 @@ if (file_exists($filename)) {
    * If barcode detected, $array[0] is an array.
    */
   $resultArray = DecodeBarcodeFile($filename, 0);
-  if (is_array($resultArray[0])) {
+  if (is_array($resultArray)) {
 	$resultCount = count($resultArray);
 	echo "Total count: $resultCount\n";
 	for($i = 0; $i < $resultCount ; $i++) {
