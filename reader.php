@@ -5,12 +5,12 @@ if (file_exists($filename)) {
   echo "Barcode file: $filename \n";
   /*
    * Description:
-   * array DecodeBarcodeFile( string $filename , bool $type )
+   * array DecodeBarcodeFile( string $filename , long $type )
    *
-   * Return Values:
-   * If barcode detected, $array[0] is an array.
+   * Returned value:
+   * If succeed, it is an array.
    */
-  $resultArray = DecodeBarcodeFile($filename, 0);
+  $resultArray = DecodeBarcodeFile($filename, 0x3FF | 0x2000000 | 0x8000000 | 0x4000000);
   if (is_array($resultArray)) {
 	$resultCount = count($resultArray);
 	echo "Total count: $resultCount\n";
