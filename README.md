@@ -2,6 +2,9 @@
 
 The sample demonstrates how to make PHP barcode reader on Ubuntu 16.04 with **PHP7** and **DBR 5.2** (Dynamsoft Barcode Reader for Linux).
 
+## License
+Get the [trial license](https://www.dynamsoft.com/CustomerPortal/Portal/Triallicense.aspx).
+
 ## Installation
 * php7.0-cli, php7.0-dev, libxml2-dev
 
