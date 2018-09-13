@@ -37,16 +37,3 @@ ul.barcodeType label { display: block; cursor:pointer; }
 #fileDownload input[type='button']:visited { background-position: left -80px; }
 #fileDownload input[type='button']:hover { background-position: left -40px; }
 #fileDownload input[type='button']:active { background-position: left -80px; }
-
-.ks-overlay { position: absolute; left: -9999px; top: -9999px; }
-.ks-ext-close { padding: 0 20px; position: absolute; right: -5px; top: 5px; }
-.ks-ext-close, .ks-ext-close:link { color: #2222AA; text-decoration: none; cursor: pointer; }
-.ks-ext-mask { background: #999; filter: alpha(opacity=70); /* IE */ -moz-opacity: 0.7; /* Moz + FF */ opacity: 0.7; /* CSS3 e.g. FF 1.5 */ }
-.D-dailog .ks-ext-close .ks-ext-close-x { height: 8px; }
-.D-dailog .ks-ext-close, .D-dailog .ks-ext-close:hover { background: none; border: none; }
-.D-dailog { position: absolute; left: -9999px; top: -99999px; margin: 100px auto; padding: 0; width: 392px; height: 242px; background-color: #F1F2F2; }
-.D-dailog .D-dailog-body { width: 350px; height: 80px; position: relative; top: 5px; left: 5px; margin: 0; background-color: #ffffff; border: 1px solid #E7E7E7; padding: 15px; }
-.D-dailog .D-dailog-body-Recognition { width: 193px; height: 218px; position: relative; top: 5px; left: 5px; margin: 0; background-color: #ffffff; border: 1px solid #E7E7E7; padding: 15px; }
-.D-dailog a { text-decoration: none; }
-.link { text-decoration: underline; }
-.D-dailog ul { margin: 10px 0 10px 20px; list-style-type: disc; }

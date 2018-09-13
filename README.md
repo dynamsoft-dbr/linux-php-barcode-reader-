@@ -1,6 +1,6 @@
 # PHP Barcode Reader for Linux
 
-The sample demonstrates how to make PHP barcode reader on Ubuntu 16.04 with **PHP7** and **DBR 5.2** (Dynamsoft Barcode Reader for Linux).
+The sample demonstrates how to make PHP barcode reader on Ubuntu 16.04 with **PHP7** and [Dynamsoft Barcode Reader for Linux](https://www.dynamsoft.com/Products/barcode-reader-c-api-linux.aspx).
 
 ## License
 Get the [trial license](https://www.dynamsoft.com/CustomerPortal/Portal/Triallicense.aspx).
@@ -12,23 +12,12 @@ Get the [trial license](https://www.dynamsoft.com/CustomerPortal/Portal/Triallic
     sudo apt-get install php7.0-cli php7.0-dev libxml2-dev
     ```
 * [php-7.0.29](http://php.net/get/php-7.0.29.tar.gz/from/a/mirror) source code 
-* DBR 5.2
+* [Dynamsoft Barcode Reader SDK](https://www.dynamsoft.com/Downloads/Dynamic-Barcode-Reader-Download.aspx?edition=linux)
 
-    1. Add public key:
-        ```
-        wget -O - http://labs.dynamsoft.com/debian/conf/dbr.gpg.key | sudo apt-key add -
-        ```
-
-    2. Add source to **/etc/apt/sources.list**:
-
-        ```
-        deb http://labs.dynamsoft.com/debian/ dbr main non-free
-        ```
-
-    3. Install Dynamsoft Barcode Reader:
-        ```
-        sudo apt-get update && install dbr
-        ```
+    ```
+    tar xzf dbr-linux-6.3.0.tar.gz
+    sudo cp Dynamsoft/BarcodeReader6.3/lib/libDynam* /usr/lib
+    ```
 
 ## How to Build the Extension
 1. Unzip PHP source code and then change directory to **ext**:
@@ -47,7 +36,7 @@ Get the [trial license](https://www.dynamsoft.com/CustomerPortal/Portal/Triallic
 
 3. Copy **config.m4** and **dbr.c** to **~/php-7.0.29/ext/dbr**:
 4. Copy **php.ini** to **/etc/php/7.0/cli/php.ini**.
-5. Build and install the extension **dbr.so**:
+5. Build and install the extension:
     
     ```
     phpize
@@ -55,27 +44,35 @@ Get the [trial license](https://www.dynamsoft.com/CustomerPortal/Portal/Triallic
     make
     sudo make install
     ```
-6. Run **reader.php**:
+6. Change the input file in **reader.php**:
+
+    ```php
+    $filename = "/home/xiao/AllSupportedBarcodeTypes.tif";
+    ```
+
+7. Run **reader.php**:
     
     ```
     php -c /etc/php/7.0/cli/php.ini reader.php
     ```
-    ![php barcode reader](screenshot/php7-barcode-reader.PNG)
+    
+    ![php barcode reader](https://www.codepool.biz/wp-content/uploads/images/php-dbr6.3.PNG)
+
 
 ## Online Barcode Reader with PHP Custom Extension
 Get the [source code][3] and deploy it to any web server.
-![php online barcode reader](http://www.codepool.biz/wp-content/uploads/2016/02/php_online_barcode_reader.png)
+![php online barcode reader](http://www.codepool.biz/wp-content/uploads/images/php-dbr-online.PNG)
 
 ### PHP on Apache
-1. Install **php5-curl**, **apache2** and **libapache2-mod-php5**:
+1. Install **php7.0-curl**, **apache2** and **libapache2-mod-php7.0**:
 
     ```
-    sudo apt-get install php5-curl apache2 libapache2-mod-php5
+    sudo apt-get install php7.0-curl apache2 libapache2-mod-php7.0
     ```
-2. Add extension path to php.ini:
+2. Add extension to `/etc/php/7.0/apache2/php.ini `:
 
     ```
-    extension=/usr/lib/php5/20121212/dbr.so
+    extension=dbr.so
     ```
 3. Get write permissions:
 
@@ -89,20 +86,31 @@ Get the [source code][3] and deploy it to any web server.
     sudo service apache2 start
     #sudo service apache2 stop // if you want to stop Apache
     ```
-5. Visit **http://localhost/reader.php**.
+5. Visit `http://localhost/reader/index.php`.
 
 ### PHP on Nginx
-1. Install **Nginx** and **php5-cgi**:
+1. Install **Nginx** and **php7.0-cgi**:
 
     ```
-    sudo apt-get install nginx php5-cgi
+    sudo apt-get install nginx php7.0-cgi
     ```
 2. Enable PHP in configuration file:
     
     ```
     sudo vi /etc/nginx/sites-available/default
+
+    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+
+    location ~ \.php$ {
+            include snippets/fastcgi-php.conf;
+
+            # With php7.0-cgi alone:
+            fastcgi_pass 127.0.0.1:9000;
+            # With php7.0-fpm:
+            #fastcgi_pass unix:/run/php/php7.0-fpm.sock;
+    }
     ```
-    ![nginx enable php](http://www.codepool.biz/wp-content/uploads/2016/02/nginx_enable_php.png)
+
 3. Get write permissions:
     
     ```
@@ -114,9 +122,9 @@ Get the [source code][3] and deploy it to any web server.
     ```
     sudo nginx
     # sudo nginx –s stop // if you want to stop Nginx
-    sudo php-cgi -b 127.0.0.1:9000 -c /usr/share/php5/php.ini-production
+    sudo php-cgi -b 127.0.0.1:9000 -c /etc/php/7.0/cli/php.ini
     ```
-5. Visit **http://localhost/reader.php**.
+5. Visit `http://localhost/reader/index.php`.
 
 ## Blog
 * [Updating PHP Barcode Extension for PHP7](http://www.codepool.biz/php-barcode-linux-ubuntu-php7.html)

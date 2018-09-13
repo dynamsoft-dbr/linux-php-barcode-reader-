@@ -46,56 +46,58 @@ PHP_INI_END()
 */
 /* }}} */
 
-
 PHP_FUNCTION(DecodeBarcodeFile)
 {
-    array_init(return_value);
-	
-    // Get Barcode image path
-    char *pFileName;
-    long barcodeType = 0;
-    size_t iLen;
-    if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "sl", &pFileName, &iLen, &barcodeType) == FAILURE) {
-        RETURN_STRING("Invalid parameters");
-    } 
+	array_init(return_value);
 
-    void* hBarcode = DBR_CreateInstance();
-    if (hBarcode)
-    {
-	DBR_InitLicenseEx(hBarcode, "t0068MgAAAL0RPbQ2oYpnm7QMnz7rxs8rigQLePZ2NF33syCm5HOcdW17XO3YlMzEwfB9J5HrbUfMWIB97szrsUsCtDW1X78=");
-	
-	int iMaxCount = 0x7FFFFFFF;
-	SBarcodeResultArray *pResults = NULL;
-	DBR_SetBarcodeFormats(hBarcode, barcodeType);
-	DBR_SetMaxBarcodesNumPerPage(hBarcode, iMaxCount);	
-	
-	// Barcode detection
-    	int ret = DBR_DecodeFileEx(hBarcode, pFileName, &pResults);
-	
-	if (pResults)
+	// Get Barcode image path
+	char *pFileName;
+	long barcodeType = 0;
+	size_t iLen;
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "sl", &pFileName, &iLen, &barcodeType) == FAILURE)
 	{
-	    int count = pResults->iBarcodeCount;
-	    SBarcodeResult** ppBarcodes = pResults->ppBarcodes;
-	    SBarcodeResult* tmp = NULL;
-	    int i = 0;
-
-	    for (; i < count; i++)
-	    {
-		tmp = ppBarcodes[i];
-		zval tmp_array;
-		array_init(&tmp_array);
-		add_next_index_string(&tmp_array, tmp->pBarcodeFormatString);
-		add_next_index_string(&tmp_array, tmp->pBarcodeData);
-		add_next_index_zval(return_value, &tmp_array);
-	    }
-	    DBR_FreeBarcodeResults(&pResults);
+		RETURN_STRING("Invalid parameters");
 	}
 
+	void *hBarcode = DBR_CreateInstance();
+	if (hBarcode)
+	{
+		DBR_InitLicense(hBarcode, "t0068NQAAAIY/7KegDlZn7YiPdAj0cbA11n2CwuCEWnk2KYla55ozdfmoasjRIpHhl0EUZmko/zxfxFLH3FpLw694uihoCVM=");
 
-	if (hBarcode) {
-            DBR_DestroyInstance(hBarcode);
-    	}
-    }
+		int iMaxCount = 0x7FFFFFFF;
+		STextResultArray *pResults = NULL;
+
+		// Update DBR params
+		PublicParameterSettings pSettings = {};
+		DBR_GetTemplateSettings(hBarcode, "", &pSettings);
+		pSettings.mBarcodeFormatIds = barcodeType;
+		char szErrorMsgBuffer[256];
+		DBR_SetTemplateSettings(hBarcode, "", &pSettings, szErrorMsgBuffer, 256);
+
+		// Barcode detection
+		int ret = DBR_DecodeFile(hBarcode, pFileName, "");
+		DBR_GetAllTextResults(hBarcode, &pResults);
+
+		if (pResults)
+		{
+			int count = pResults->nResultsCount;
+			int i = 0;
+			for (; i < count; i++)
+			{
+				zval tmp_array;
+				array_init(&tmp_array);
+				add_next_index_string(&tmp_array, pResults->ppResults[i]->pszBarcodeFormatString);
+				add_next_index_string(&tmp_array, pResults->ppResults[i]->pszBarcodeText);
+				add_next_index_zval(return_value, &tmp_array);
+			}
+			DBR_FreeTextResults(&pResults);
+		}
+
+		if (hBarcode)
+		{
+			DBR_DestroyInstance(hBarcode);
+		}
+	}
 }
 /* }}} */
 /* The previous line is meant for vim and emacs, so it can correctly fold and
@@ -103,7 +105,6 @@ PHP_FUNCTION(DecodeBarcodeFile)
    function definition, where the functions purpose is also documented. Please
    follow this convention for the convenience of others editing your code.
 */
-
 
 /* {{{ php_dbr_init_globals
  */
@@ -178,8 +179,8 @@ PHP_MINFO_FUNCTION(dbr)
  * Every user visible function must have an entry in dbr_functions[].
  */
 const zend_function_entry dbr_functions[] = {
-	PHP_FE(DecodeBarcodeFile,   NULL) 
-	PHP_FE_END	/* Must be the last line in dbr_functions[] */
+	PHP_FE(DecodeBarcodeFile, NULL)
+		PHP_FE_END /* Must be the last line in dbr_functions[] */
 };
 /* }}} */
 
@@ -192,11 +193,10 @@ zend_module_entry dbr_module_entry = {
 	PHP_MINIT(dbr),
 	PHP_MSHUTDOWN(dbr),
 	PHP_RINIT(dbr),		/* Replace with NULL if there's nothing to do at request start */
-	PHP_RSHUTDOWN(dbr),	/* Replace with NULL if there's nothing to do at request end */
+	PHP_RSHUTDOWN(dbr), /* Replace with NULL if there's nothing to do at request end */
 	PHP_MINFO(dbr),
 	PHP_DBR_VERSION,
-	STANDARD_MODULE_PROPERTIES
-};
+	STANDARD_MODULE_PROPERTIES};
 /* }}} */
 
 #ifdef COMPILE_DL_DBR
