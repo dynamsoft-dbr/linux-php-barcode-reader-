@@ -34,9 +34,15 @@ Get the [trial license](https://www.dynamsoft.com/CustomerPortal/Portal/Triallic
     cd dbr
     ```
 
-3. Copy **config.m4** and **dbr.c** to **~/php-7.0.29/ext/dbr**:
-4. Copy **php.ini** to **/etc/php/7.0/cli/php.ini**.
-5. Build and install the extension:
+3. Set a valid SDK license in **dbr.c**:
+    
+   ```
+   DBR_InitLicense(hBarcode, "t0068NQAAAIY/7KegDlZn7YiPdAj0cbA11n2CwuCEWnk2KYla55ozdfmoasjRIpHhl0EUZmko/zxfxFLH3FpLw694uihoCVM=");
+   ```
+
+4. Copy **config.m4** and **dbr.c** to **~/php-7.0.29/ext/dbr**:
+5. Copy **php.ini** to **/etc/php/7.0/cli/php.ini**.
+6. Build and install the extension:
     
     ```
     phpize
