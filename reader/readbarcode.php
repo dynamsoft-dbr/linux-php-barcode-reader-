@@ -1,6 +1,7 @@
 <?php
 function readBarcode($path, $type) {
   try {  	
+	DBRInitLicense("LICENSE-KEY");
   	$resultArray = DecodeBarcodeFile($path, $type);
   } catch(Exception $exp) {
   	echo '<p>' . $exp . '</p>';

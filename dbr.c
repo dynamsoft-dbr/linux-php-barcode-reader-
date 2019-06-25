@@ -46,8 +46,28 @@ PHP_INI_END()
 */
 /* }}} */
 
+static void *hBarcode = NULL;
+
+#define CHECK_DBR() {if (!hBarcode) hBarcode = DBR_CreateInstance();}
+
+PHP_FUNCTION(DBRInitLicense)
+{
+	CHECK_DBR();
+
+	char *pszLicense;
+	size_t iLen;
+	
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &pszLicense, &iLen) == FAILURE)
+	{
+		RETURN_STRING("Invalid parameters");
+	}
+	DBR_InitLicense(hBarcode, pszLicense);
+}
+
 PHP_FUNCTION(DecodeBarcodeFile)
 {
+	CHECK_DBR();
+
 	array_init(return_value);
 
 	// Get Barcode image path
@@ -59,11 +79,8 @@ PHP_FUNCTION(DecodeBarcodeFile)
 		RETURN_STRING("Invalid parameters");
 	}
 
-	void *hBarcode = DBR_CreateInstance();
 	if (hBarcode)
 	{
-		DBR_InitLicense(hBarcode, "t0068NQAAAIY/7KegDlZn7YiPdAj0cbA11n2CwuCEWnk2KYla55ozdfmoasjRIpHhl0EUZmko/zxfxFLH3FpLw694uihoCVM=");
-
 		int iMaxCount = 0x7FFFFFFF;
 		STextResultArray *pResults = NULL;
 
@@ -77,7 +94,6 @@ PHP_FUNCTION(DecodeBarcodeFile)
 		// Barcode detection
 		int ret = DBR_DecodeFile(hBarcode, pFileName, "");
 		DBR_GetAllTextResults(hBarcode, &pResults);
-
 		if (pResults)
 		{
 			int count = pResults->nResultsCount;
@@ -88,6 +104,7 @@ PHP_FUNCTION(DecodeBarcodeFile)
 				array_init(&tmp_array);
 				add_next_index_string(&tmp_array, pResults->ppResults[i]->pszBarcodeFormatString);
 				add_next_index_string(&tmp_array, pResults->ppResults[i]->pszBarcodeText);
+				add_next_index_stringl(&tmp_array, pResults->ppResults[i]->pBarcodeBytes, pResults->ppResults[i]->nBarcodeBytesLength);
 				add_next_index_zval(return_value, &tmp_array);
 			}
 			DBR_FreeTextResults(&pResults);
@@ -179,8 +196,9 @@ PHP_MINFO_FUNCTION(dbr)
  * Every user visible function must have an entry in dbr_functions[].
  */
 const zend_function_entry dbr_functions[] = {
+	PHP_FE(DBRInitLicense, NULL)
 	PHP_FE(DecodeBarcodeFile, NULL)
-		PHP_FE_END /* Must be the last line in dbr_functions[] */
+	PHP_FE_END /* Must be the last line in dbr_functions[] */
 };
 /* }}} */
 

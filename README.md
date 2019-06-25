@@ -11,20 +11,20 @@ Get the [trial license](https://www.dynamsoft.com/CustomerPortal/Portal/Triallic
     ``` 
     sudo apt-get install php7.0-cli php7.0-dev libxml2-dev
     ```
-* [php-7.0.29](http://php.net/get/php-7.0.29.tar.gz/from/a/mirror) source code 
+* [php-7.0.30](https://www.php.net/distributions/php-7.0.30.tar.bz2) source code 
 * [Dynamsoft Barcode Reader SDK](https://www.dynamsoft.com/Downloads/Dynamic-Barcode-Reader-Download.aspx?edition=linux)
 
     ```
-    tar xzf dbr-linux-6.3.0.tar.gz
-    sudo cp Dynamsoft/BarcodeReader6.3/lib/libDynam* /usr/lib
+    tar xvf dbr-linux-6.5.2.tar.gz
+    sudo cp ./Dynamsoft/BarcodeReader/lib/WITHOUTSTDC++LIB/libDynamsoftBarcodeReader.so /usr/lib/
     ```
 
 ## How to Build the Extension
 1. Unzip PHP source code and then change directory to **ext**:
 
     ```
-    tar -xzf php-7.0.29.tar.gz
-    cd ~/php-7.0.29/ext/
+    tar xvf php-7.0.30.tar.gz
+    cd ~/php-7.0.30/ext/
     ```
 
 2. Create an extension folder:
@@ -34,15 +34,9 @@ Get the [trial license](https://www.dynamsoft.com/CustomerPortal/Portal/Triallic
     cd dbr
     ```
 
-3. Set a valid SDK license in **dbr.c**:
-    
-   ```
-   DBR_InitLicense(hBarcode, "t0068NQAAAIY/7KegDlZn7YiPdAj0cbA11n2CwuCEWnk2KYla55ozdfmoasjRIpHhl0EUZmko/zxfxFLH3FpLw694uihoCVM=");
-   ```
-
-4. Copy **config.m4** and **dbr.c** to **~/php-7.0.29/ext/dbr**:
-5. Copy **php.ini** to **/etc/php/7.0/cli/php.ini**.
-6. Build and install the extension:
+3. Copy **config.m4**, **DynamsoftBarcodeReader.h**, **reader.php** and **dbr.c** to **~/php-7.0.30/ext/dbr**:
+4. Copy **php.ini** to **/etc/php/7.0/cli/php.ini**.
+5. Build and install the extension:
     
     ```
     phpize
@@ -50,10 +44,10 @@ Get the [trial license](https://www.dynamsoft.com/CustomerPortal/Portal/Triallic
     make
     sudo make install
     ```
-6. Change the input file in **reader.php**:
+6. Get a [trial license](https://www.dynamsoft.com/CustomerPortal/Portal/Triallicense.aspx) and set it in **reader.php**:
 
     ```php
-    $filename = "/home/xiao/AllSupportedBarcodeTypes.tif";
+    DBRInitLicense("LICENSE-KEY");
     ```
 
 7. Run **reader.php**:

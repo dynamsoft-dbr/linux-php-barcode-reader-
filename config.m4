@@ -58,6 +58,5 @@ if test "$PHP_DBR" != "no"; then
   ])
   
   PHP_SUBST(DBR_SHARED_LIBADD)
-  PHP_ADD_INCLUDE(/opt/dynamsoft/dbr/include)
   PHP_NEW_EXTENSION(dbr, dbr.c, $ext_shared)
 fi
