@@ -48,7 +48,14 @@ PHP_INI_END()
 
 static void *hBarcode = NULL;
 
-#define CHECK_DBR() {if (!hBarcode) hBarcode = DBR_CreateInstance();}
+#define CHECK_DBR() 										\
+if (!hBarcode) 												\
+{															\
+	hBarcode = DBR_CreateInstance();						\
+	const char* versionInfo = DBR_GetVersion();				\
+	printf("Dynamsoft Barcode Reader %s\n", versionInfo);	\
+}															
+
 
 PHP_FUNCTION(DBRInitLicense)
 {
@@ -82,29 +89,29 @@ PHP_FUNCTION(DecodeBarcodeFile)
 	if (hBarcode)
 	{
 		int iMaxCount = 0x7FFFFFFF;
-		STextResultArray *pResults = NULL;
+		TextResultArray *pResults = NULL;
 
 		// Update DBR params
-		PublicParameterSettings pSettings = {};
-		DBR_GetTemplateSettings(hBarcode, "", &pSettings);
-		pSettings.mBarcodeFormatIds = barcodeType;
+		PublicRuntimeSettings pSettings = {0};
+		DBR_GetRuntimeSettings(hBarcode, &pSettings);
+		pSettings.barcodeFormatIds = barcodeType;
 		char szErrorMsgBuffer[256];
-		DBR_SetTemplateSettings(hBarcode, "", &pSettings, szErrorMsgBuffer, 256);
+		DBR_UpdateRuntimeSettings(hBarcode, &pSettings, szErrorMsgBuffer, 256);
 
 		// Barcode detection
 		int ret = DBR_DecodeFile(hBarcode, pFileName, "");
 		DBR_GetAllTextResults(hBarcode, &pResults);
 		if (pResults)
 		{
-			int count = pResults->nResultsCount;
+			int count = pResults->resultsCount;
 			int i = 0;
 			for (; i < count; i++)
 			{
 				zval tmp_array;
 				array_init(&tmp_array);
-				add_next_index_string(&tmp_array, pResults->ppResults[i]->pszBarcodeFormatString);
-				add_next_index_string(&tmp_array, pResults->ppResults[i]->pszBarcodeText);
-				add_next_index_stringl(&tmp_array, pResults->ppResults[i]->pBarcodeBytes, pResults->ppResults[i]->nBarcodeBytesLength);
+				add_next_index_string(&tmp_array, pResults->results[i]->barcodeFormatString);
+				add_next_index_string(&tmp_array, pResults->results[i]->barcodeText);
+				add_next_index_stringl(&tmp_array, pResults->results[i]->barcodeBytes, pResults->results[i]->barcodeBytesLength);
 				add_next_index_zval(return_value, &tmp_array);
 			}
 			DBR_FreeTextResults(&pResults);
