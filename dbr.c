@@ -48,7 +48,14 @@ PHP_INI_END()
 
 static void *hBarcode = NULL;
 
-#define CHECK_DBR() {if (!hBarcode) hBarcode = DBR_CreateInstance();}
+#define CHECK_DBR() 										\
+if (!hBarcode) 												\
+{															\
+	hBarcode = DBR_CreateInstance();						\
+	const char* versionInfo = DBR_GetVersion();				\
+	printf("Dynamsoft Barcode Reader %s\n", versionInfo);	\
+}															
+
 
 PHP_FUNCTION(DBRInitLicense)
 {
@@ -109,11 +116,20 @@ PHP_FUNCTION(DecodeBarcodeFile)
 			}
 			DBR_FreeTextResults(&pResults);
 		}
+	}
+}
 
-		if (hBarcode)
-		{
-			DBR_DestroyInstance(hBarcode);
-		}
+PHP_FUNCTION(DBRCreate)
+{
+	CHECK_DBR();
+}
+
+PHP_FUNCTION(DBRDestroy)
+{
+	if (hBarcode)
+	{
+		DBR_DestroyInstance(hBarcode);
+		hBarcode = NULL;
 	}
 }
 /* }}} */
@@ -198,6 +214,8 @@ PHP_MINFO_FUNCTION(dbr)
 const zend_function_entry dbr_functions[] = {
 	PHP_FE(DBRInitLicense, NULL)
 	PHP_FE(DecodeBarcodeFile, NULL)
+	PHP_FE(DBRCreate, NULL)
+	PHP_FE(DBRDestroy, NULL)
 	PHP_FE_END /* Must be the last line in dbr_functions[] */
 };
 /* }}} */
