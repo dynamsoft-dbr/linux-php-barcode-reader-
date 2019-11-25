@@ -13,7 +13,7 @@ Get the [trial license](https://www.dynamsoft.com/CustomerPortal/Portal/Triallic
     sudo apt-get install php7.0-cli php7.0-dev libxml2-dev
     ```
 * [php-7.0.30](https://www.php.net/distributions/php-7.0.30.tar.bz2) source code 
-* [Dynamsoft Barcode Reader SDK](https://www.dynamsoft.com/Downloads/Dynamic-Barcode-Reader-Download.aspx?edition=linux)
+* [Dynamsoft Barcode Reader SDK 7.0](https://github.com/dynamsoft-dbr/linux-php-barcode-reader-/releases/tag/v7.0)
 
     ```
     tar xvf dbr-linux-7.0.tar.gz
