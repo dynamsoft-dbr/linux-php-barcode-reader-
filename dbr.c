@@ -22,6 +22,7 @@
 #include "config.h"
 #endif
 
+#include <string.h>
 #include "php.h"
 #include "php_ini.h"
 #include "ext/standard/info.h"
@@ -179,11 +180,12 @@ PHP_FUNCTION(DecodeBarcodeFile)
 				add_next_index_stringl(&tmp_array, pResults->results[i]->barcodeBytes, pResults->results[i]->barcodeBytesLength);
 
 				memset(strLocalization, 0, 128);
-				sprinf(strLocalization, "[(%d,%d),(%d,%d),(%d,%d),(%d,%d)]", \
+				sprintf(strLocalization, "[(%d,%d),(%d,%d),(%d,%d),(%d,%d)]", \
 				pResults->results[i]->localizationResult->x1, pResults->results[i]->localizationResult->y1, \
 				pResults->results[i]->localizationResult->x2, pResults->results[i]->localizationResult->y2, \
 				pResults->results[i]->localizationResult->x3, pResults->results[i]->localizationResult->y3, \
 				pResults->results[i]->localizationResult->x4, pResults->results[i]->localizationResult->y4); 
+				add_next_index_string(&tmp_array, strLocalization);
 
 				add_next_index_zval(return_value, &tmp_array);
 			}
