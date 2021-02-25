@@ -16,6 +16,7 @@ function readBarcode($path, $type) {
 		echo '<p>Barcode ' . ($i+1) . ':</p>';
   	 	echo "<p>Type: $result[0]</p>";
   	 	echo "<p>Value: $result[1] </p><br/>"; 
+		echo "<p>Localization: $result[3] </p><br/>"; 
 	}
   }
   else {

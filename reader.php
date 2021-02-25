@@ -6,6 +6,18 @@ if (file_exists($filename)) {
 
   // https://www.dynamsoft.com/CustomerPortal/Portal/Triallicense.aspx
   DBRInitLicense("LICENSE-KEY");
+  // DBRInitLicenseFromServer("Server-Site", "License-Key");
+
+  //Best coverage settings
+  DBRInitRuntimeSettingsWithString("{\"ImageParameter\":{\"Name\":\"BestCoverage\",\"DeblurLevel\":9,\"ExpectedBarcodesCount\":512,\"ScaleDownThreshold\":100000,\"LocalizationModes\":[{\"Mode\":\"LM_CONNECTED_BLOCKS\"},{\"Mode\":\"LM_SCAN_DIRECTLY\"},{\"Mode\":\"LM_STATISTICS\"},{\"Mode\":\"LM_LINES\"},{\"Mode\":\"LM_STATISTICS_MARKS\"}],\"GrayscaleTransformationModes\":[{\"Mode\":\"GTM_ORIGINAL\"},{\"Mode\":\"GTM_INVERTED\"}]}}");		
+  //Best speend settings
+  //DBRInitRuntimeSettingsWithString("{\"ImageParameter\":{\"Name\":\"BestSpeed\",\"DeblurLevel\":3,\"ExpectedBarcodesCount\":512,\"LocalizationModes\":[{\"Mode\":\"LM_SCAN_DIRECTLY\"}],\"TextFilterModes\":[{\"MinImageDimension\":262144,\"Mode\":\"TFM_GENERAL_CONTOUR\"}]}}");
+  //Balance settings
+  //DBRInitRuntimeSettingsWithString("{\"ImageParameter\":{\"Name\":\"Balance\",\"DeblurLevel\":5,\"ExpectedBarcodesCount\":512,\"LocalizationModes\":[{\"Mode\":\"LM_CONNECTED_BLOCKS\"},{\"Mode\":\"LM_STATISTICS\"}]}}");
+
+  //Or you can init runtime settings with file.
+  //$templateFile = "template.json";
+  //DBRInitRuntimeSettingsWithFile($templateFile);
 
   /*
    * Description:
@@ -24,6 +36,7 @@ if (file_exists($filename)) {
       echo "Barcode format: $result[0], ";
       echo "value: $result[1], ";
       echo "raw: ", bin2hex($result[2]), "\n";
+      echo "Localization : ", $result[3], "\n";
     }
   } else {
     echo "$resultArray[0]";

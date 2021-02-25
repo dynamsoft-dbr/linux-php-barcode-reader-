@@ -27,6 +27,7 @@
 #include "ext/standard/info.h"
 #include "php_dbr.h"
 
+#include "DynamsoftCommon.h"
 #include "DynamsoftBarcodeReader.h"
 
 /* If you declare any globals in php_dbr.h uncomment this:
@@ -71,6 +72,69 @@ PHP_FUNCTION(DBRInitLicense)
 	DBR_InitLicense(hBarcode, pszLicense);
 }
 
+PHP_FUNCTION(DBRInitLicenseFromServer)
+{
+	CHECK_DBR();
+
+	array_init(return_value);
+
+	char *pszLicenseServer;
+	size_t iLen1;
+	char *pszLicenseKey;
+	size_t iLen2;
+	
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "ss", &pszLicenseServer, &iLen1, &pszLicenseKey, &iLen2) == FAILURE)
+	{
+		RETURN_STRING("Invalid parameters");
+	}
+	int errorCode = DBR_InitLicenseFromServer(hBarcode, pszLicenseServer, pszLicenseKey);
+	RETVAL_LONG(errorCode);
+}
+
+PHP_FUNCTION(DBRInitRuntimeSettingsWithFile)
+{
+	CHECK_DBR();
+
+	array_init(return_value);
+
+	char *pszFilePath;
+	size_t iLen;
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &pszFilePath, &iLen) == FAILURE)
+	{
+		RETURN_STRING("Invalid parameters");
+	}
+
+	char errorBuffer[512];
+
+	DBR_InitRuntimeSettingsWithFile(hBarcode, pszFilePath, CM_OVERWRITE, errorBuffer, 512);
+
+	add_next_index_string(return_value, errorBuffer);
+
+}
+
+PHP_FUNCTION(DBRInitRuntimeSettingsWithString)
+{
+	CHECK_DBR();
+
+	array_init(return_value);
+
+	char *pszContent;
+	size_t iLen;
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &pszContent, &iLen) == FAILURE)
+	{
+		RETURN_STRING("Invalid parameters");
+	}
+
+	char errorBuffer[512];
+
+	DBR_InitRuntimeSettingsWithString(hBarcode, pszContent, CM_OVERWRITE, errorBuffer, 512);
+
+	add_next_index_string(return_value, errorBuffer);
+
+}
+
 PHP_FUNCTION(DecodeBarcodeFile)
 {
 	CHECK_DBR();
@@ -105,6 +169,7 @@ PHP_FUNCTION(DecodeBarcodeFile)
 		{
 			int count = pResults->resultsCount;
 			int i = 0;
+			char strLocalization[128];
 			for (; i < count; i++)
 			{
 				zval tmp_array;
@@ -112,6 +177,14 @@ PHP_FUNCTION(DecodeBarcodeFile)
 				add_next_index_string(&tmp_array, pResults->results[i]->barcodeFormatString);
 				add_next_index_string(&tmp_array, pResults->results[i]->barcodeText);
 				add_next_index_stringl(&tmp_array, pResults->results[i]->barcodeBytes, pResults->results[i]->barcodeBytesLength);
+
+				memset(strLocalization, 0, 128);
+				sprinf(strLocalization, "[(%d,%d),(%d,%d),(%d,%d),(%d,%d)]", \
+				pResults->results[i]->localizationResult->x1, pResults->results[i]->localizationResult->y1, \
+				pResults->results[i]->localizationResult->x2, pResults->results[i]->localizationResult->y2, \
+				pResults->results[i]->localizationResult->x3, pResults->results[i]->localizationResult->y3, \
+				pResults->results[i]->localizationResult->x4, pResults->results[i]->localizationResult->y4); 
+
 				add_next_index_zval(return_value, &tmp_array);
 			}
 			DBR_FreeTextResults(&pResults);
@@ -213,6 +286,9 @@ PHP_MINFO_FUNCTION(dbr)
  */
 const zend_function_entry dbr_functions[] = {
 	PHP_FE(DBRInitLicense, NULL)
+	PHP_FE(DBRInitLicenseFromServer, NULL)
+	PHP_FE(DBRInitRuntimeSettingsWithFile, NULL)
+	PHP_FE(DBRInitRuntimeSettingsWithString, NULL)
 	PHP_FE(DecodeBarcodeFile, NULL)
 	PHP_FE(DBRCreate, NULL)
 	PHP_FE(DBRDestroy, NULL)
