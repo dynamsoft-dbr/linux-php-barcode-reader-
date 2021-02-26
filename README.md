@@ -1,5 +1,5 @@
 # PHP Barcode Reader for Linux
-Version 7.0
+Version 8.1.2
 
 The sample demonstrates how to make PHP barcode reader with **PHP7** and [Dynamsoft Barcode Reader for Linux](https://www.dynamsoft.com/Products/barcode-reader-c-api-linux.aspx).
 
@@ -13,11 +13,11 @@ Get the [trial license](https://www.dynamsoft.com/CustomerPortal/Portal/Triallic
     sudo apt-get install php7.0-cli php7.0-dev libxml2-dev
     ```
 * [php-7.0.30](https://www.php.net/distributions/php-7.0.30.tar.bz2) source code 
-* [Dynamsoft Barcode Reader SDK 7.0](https://github.com/dynamsoft-dbr/linux-php-barcode-reader-/releases/tag/v7.0)
+* [Dynamsoft Barcode Reader SDK 8.1.2](https://github.com/dynamsoft-dbr/linux-php-barcode-reader-/releases/tag/v8.1.2)
 
     ```
-    tar xvf dbr-linux-7.0.tar.gz
-    sudo cp ./Dynamsoft/BarcodeReader/lib/WITHOUTSTDC++LIB/libDynamsoftBarcodeReader.so /usr/lib/
+    unzip dbr-c_cpp-8.1.2.zip
+    sudo cp ./dbr-c_cpp-8.1.2/DynamsoftBarcodeReader/Lib/Linux/*.so /usr/lib/
     ```
 
 ## How to Build the Extension
