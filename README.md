@@ -1,6 +1,7 @@
 # PHP Barcode Reader for Linux
+Version 8.1.2
 
-The sample demonstrates how to make PHP barcode reader on Ubuntu 16.04 with **PHP7** and [Dynamsoft Barcode Reader for Linux](https://www.dynamsoft.com/Products/barcode-reader-c-api-linux.aspx).
+The sample demonstrates how to make PHP barcode reader with **PHP7** and [Dynamsoft Barcode Reader for Linux](https://www.dynamsoft.com/Products/barcode-reader-c-api-linux.aspx).
 
 ## License
 Get the [trial license](https://www.dynamsoft.com/CustomerPortal/Portal/Triallicense.aspx).
@@ -12,11 +13,11 @@ Get the [trial license](https://www.dynamsoft.com/CustomerPortal/Portal/Triallic
     sudo apt-get install php7.0-cli php7.0-dev libxml2-dev
     ```
 * [php-7.0.30](https://www.php.net/distributions/php-7.0.30.tar.bz2) source code 
-* [Dynamsoft Barcode Reader SDK](https://www.dynamsoft.com/Downloads/Dynamic-Barcode-Reader-Download.aspx?edition=linux)
+* [Dynamsoft Barcode Reader SDK 8.1.2](https://github.com/dynamsoft-dbr/linux-php-barcode-reader-/releases/tag/v8.1.2)
 
     ```
-    tar xvf dbr-linux-6.5.2.tar.gz
-    sudo cp ./Dynamsoft/BarcodeReader/lib/WITHOUTSTDC++LIB/libDynamsoftBarcodeReader.so /usr/lib/
+    unzip dbr-c_cpp-8.1.2.zip
+    sudo cp ./dbr-c_cpp-8.1.2/DynamsoftBarcodeReader/Lib/Linux/*.so /usr/lib/
     ```
 
 ## How to Build the Extension
@@ -34,7 +35,7 @@ Get the [trial license](https://www.dynamsoft.com/CustomerPortal/Portal/Triallic
     cd dbr
     ```
 
-3. Copy **config.m4**, **DynamsoftBarcodeReader.h**, **reader.php** and **dbr.c** to **~/php-7.0.30/ext/dbr**:
+3. Copy **AllSupportedBarcodeTypes.tif**, **config.m4**, **DynamsoftBarcodeReader.h**, **reader.php** and **dbr.c** to **~/php-7.0.30/ext/dbr**:
 4. Copy **php.ini** to **/etc/php/7.0/cli/php.ini**.
 5. Build and install the extension:
     
@@ -56,12 +57,13 @@ Get the [trial license](https://www.dynamsoft.com/CustomerPortal/Portal/Triallic
     php -c /etc/php/7.0/cli/php.ini reader.php
     ```
     
-    ![php barcode reader](https://www.codepool.biz/wp-content/uploads/images/php-dbr6.3.PNG)
+    ![php barcode reader](https://www.codepool.biz/wp-content/uploads/images/linux-php-barcode.png)
 
 
 ## Online Barcode Reader with PHP Custom Extension
 Get the [source code][3] and deploy it to any web server.
-![php online barcode reader](http://www.codepool.biz/wp-content/uploads/images/php-dbr-online.PNG)
+
+![php online barcode reader](https://www.codepool.biz/wp-content/uploads/images/php-dbr-online.png)
 
 ### PHP on Apache
 1. Install **php7.0-curl**, **apache2** and **libapache2-mod-php7.0**:
