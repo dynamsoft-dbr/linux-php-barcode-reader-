@@ -35,7 +35,7 @@ Get the [trial license](https://www.dynamsoft.com/CustomerPortal/Portal/Triallic
     cd dbr
     ```
 
-3. Copy **AllSupportedBarcodeTypes.tif**, **config.m4**, **DynamsoftBarcodeReader.h**, **reader.php** and **dbr.c** to **~/php-7.0.30/ext/dbr**:
+3. Copy **AllSupportedBarcodeTypes.tif**, **config.m4**, **DynamsoftBarcodeReader.h**,**DynamsoftCommon.h** **reader.php** and **dbr.c** to **~/php-7.0.30/ext/dbr**:
 4. Copy **php.ini** to **/etc/php/7.0/cli/php.ini**.
 5. Build and install the extension:
     
