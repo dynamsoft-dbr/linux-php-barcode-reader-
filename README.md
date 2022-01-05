@@ -1,31 +1,31 @@
 # PHP Barcode Reader for Linux
-Version 8.1.2
+Version 8.8
 
 The sample demonstrates how to make PHP barcode reader with **PHP7** and [Dynamsoft Barcode Reader for Linux](https://www.dynamsoft.com/Products/barcode-reader-c-api-linux.aspx).
 
 ## License
-Get the [trial license](https://www.dynamsoft.com/CustomerPortal/Portal/Triallicense.aspx).
+Get the [trial license](https://www.dynamsoft.com/customer/license/trialLicense?product=dbr).
 
 ## Installation
-* php7.0-cli, php7.0-dev, libxml2-dev
+* php-cli, php-dev, and libxml2-dev
 
     ``` 
-    sudo apt-get install php7.0-cli php7.0-dev libxml2-dev
+    sudo apt install php-cli php-dev libxml2-dev
     ```
-* [php-7.0.30](https://www.php.net/distributions/php-7.0.30.tar.bz2) source code 
-* [Dynamsoft Barcode Reader SDK 8.1.2](https://github.com/dynamsoft-dbr/linux-php-barcode-reader-/releases/tag/v8.1.2)
+* Check php version `php -v` and download corresponding [source code]((https://www.php.net/releases/)
+* [Dynamsoft Barcode Reader SDK](https://www.dynamsoft.com/barcode-reader/downloads)
 
     ```
-    unzip dbr-c_cpp-8.1.2.zip
-    sudo cp ./dbr-c_cpp-8.1.2/DynamsoftBarcodeReader/Lib/Linux/*.so /usr/lib/
+    unzip dbr-c_cpp-8.8.zip
+    sudo cp ./dbr-c_cpp-8.8/DynamsoftBarcodeReader/Lib/Linux/*.so /usr/lib/
     ```
 
 ## How to Build the Extension
 1. Unzip PHP source code and then change directory to **ext**:
 
     ```
-    tar xvf php-7.0.30.tar.gz
-    cd ~/php-7.0.30/ext/
+    tar xvf php-7.<version>.tar.gz
+    cd ~/php-7.<version>/ext/
     ```
 
 2. Create an extension folder:
@@ -35,8 +35,8 @@ Get the [trial license](https://www.dynamsoft.com/CustomerPortal/Portal/Triallic
     cd dbr
     ```
 
-3. Copy **AllSupportedBarcodeTypes.tif**, **config.m4**, **DynamsoftBarcodeReader.h**, **DynamsoftCommon.h**, **reader.php** and **dbr.c** to **~/php-7.0.30/ext/dbr**:
-4. Copy **php.ini** to **/etc/php/7.0/cli/php.ini**.
+3. Copy **AllSupportedBarcodeTypes.tif**, **config.m4**, **DynamsoftBarcodeReader.h**, **DynamsoftCommon.h**, **reader.php** and **dbr.c** to **~/php-7.<version>/ext/dbr**:
+4. Copy **php.ini** to **/etc/php/7.<version>/cli/php.ini**.
 5. Build and install the extension:
     
     ```
@@ -54,7 +54,7 @@ Get the [trial license](https://www.dynamsoft.com/CustomerPortal/Portal/Triallic
 7. Run **reader.php**:
     
     ```
-    php -c /etc/php/7.0/cli/php.ini reader.php
+    php -c /etc/php/7.<version>/cli/php.ini reader.php
     ```
     
     ![php barcode reader](https://www.codepool.biz/wp-content/uploads/images/linux-php-barcode.png)
@@ -66,12 +66,12 @@ Get the [source code][3] and deploy it to any web server.
 ![php online barcode reader](https://www.codepool.biz/wp-content/uploads/images/php-dbr-online.png)
 
 ### PHP on Apache
-1. Install **php7.0-curl**, **apache2** and **libapache2-mod-php7.0**:
+1. Install **php7.<version>-curl**, **apache2** and **libapache2-mod-php7.<version>**:
 
     ```
-    sudo apt-get install php7.0-curl apache2 libapache2-mod-php7.0
+    sudo apt-get install php7.<version>-curl apache2 libapache2-mod-php7.<version>
     ```
-2. Add extension to `/etc/php/7.0/apache2/php.ini `:
+2. Add extension to `/etc/php/7.<version>/apache2/php.ini `:
 
     ```
     extension=dbr.so
@@ -91,10 +91,10 @@ Get the [source code][3] and deploy it to any web server.
 5. Visit `http://localhost/reader/index.php`.
 
 ### PHP on Nginx
-1. Install **Nginx** and **php7.0-cgi**:
+1. Install **Nginx** and **php7.<version>-cgi**:
 
     ```
-    sudo apt-get install nginx php7.0-cgi
+    sudo apt-get install nginx php7.<version>-cgi
     ```
 2. Enable PHP in configuration file:
     
@@ -106,10 +106,10 @@ Get the [source code][3] and deploy it to any web server.
     location ~ \.php$ {
             include snippets/fastcgi-php.conf;
 
-            # With php7.0-cgi alone:
+            # With php7.<version>-cgi alone:
             fastcgi_pass 127.0.0.1:9000;
-            # With php7.0-fpm:
-            #fastcgi_pass unix:/run/php/php7.0-fpm.sock;
+            # With php7.<version>-fpm:
+            #fastcgi_pass unix:/run/php/php7.<version>-fpm.sock;
     }
     ```
 
@@ -124,7 +124,7 @@ Get the [source code][3] and deploy it to any web server.
     ```
     sudo nginx
     # sudo nginx –s stop // if you want to stop Nginx
-    sudo php-cgi -b 127.0.0.1:9000 -c /etc/php/7.0/cli/php.ini
+    sudo php-cgi -b 127.0.0.1:9000 -c /etc/php/7.<version>/cli/php.ini
     ```
 5. Visit `http://localhost/reader/index.php`.
 
