@@ -25,17 +25,17 @@ Get the [trial license](https://www.dynamsoft.com/customer/license/trialLicense?
 
     ```
     tar xvf php-7.<version>.tar.gz
-    cd ~/php-7.<version>/ext/
+    cd php-7.<version>/ext/
     ```
 
 2. Create an extension folder:
 
     ```
-    ./ext_skel --extname=dbr
+    php ext_skel.php --ext dbr
     cd dbr
     ```
 
-3. Copy **AllSupportedBarcodeTypes.tif**, **config.m4**, **DynamsoftBarcodeReader.h**, **DynamsoftCommon.h**, **reader.php** and **dbr.c** to **~/php-7.<version>/ext/dbr**:
+3. Copy **AllSupportedBarcodeTypes.tif**, **config.m4**, **DynamsoftBarcodeReader.h**, **DynamsoftCommon.h**, **reader.php** and **dbr.c** to **php-7.<version>/ext/dbr**:
 4. Copy **php.ini** to **/etc/php/7.<version>/cli/php.ini**.
 5. Build and install the extension:
     
@@ -45,7 +45,7 @@ Get the [trial license](https://www.dynamsoft.com/customer/license/trialLicense?
     make
     sudo make install
     ```
-6. Get a [trial license](https://www.dynamsoft.com/CustomerPortal/Portal/Triallicense.aspx) and set it in **reader.php**:
+6. Get a [trial license](https://www.dynamsoft.com/customer/license/trialLicense?product=dbr) and set it in **reader.php**:
 
     ```php
     DBRInitLicense("LICENSE-KEY");
