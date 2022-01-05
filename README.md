@@ -129,7 +129,7 @@ Get the [source code][3] and deploy it to any web server.
 5. Visit `http://localhost/reader/index.php`.
 
 ## Blog
-* [Updating PHP Barcode Extension for PHP7](http://www.codepool.biz/php-barcode-linux-ubuntu-php7.html)
+* [Building Enterprise-class PHP Barcode Extension for Web Development](http://www.codepool.biz/php-barcode-linux-ubuntu-php7.html)
 
 [1]:http://labs.dynamsoft.com/linux-barcode-reader-overview.htm
 [2]:http://php.net/downloads.php
