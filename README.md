@@ -130,8 +130,6 @@ Get the [source code][3] and deploy it to any web server.
 
 ## Blog
 * [Updating PHP Barcode Extension for PHP7](http://www.codepool.biz/php-barcode-linux-ubuntu-php7.html)
-* [How to Make PHP Barcode Reader on Linux][4]
-* [How to Deploy PHP Code to Apache and Nginx on Ubuntu 14.04][5]
 
 [1]:http://labs.dynamsoft.com/linux-barcode-reader-overview.htm
 [2]:http://php.net/downloads.php
