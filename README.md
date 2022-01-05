@@ -1,7 +1,7 @@
 # PHP Barcode Reader for Linux
 Version 8.8
 
-The sample demonstrates how to make PHP barcode reader with **PHP7** and [Dynamsoft Barcode Reader for Linux](https://www.dynamsoft.com/Products/barcode-reader-c-api-linux.aspx).
+The sample demonstrates how to make PHP barcode reader with **PHP7** and Dynamsoft Barcode Reader for Linux.
 
 ## License
 Get the [trial license](https://www.dynamsoft.com/customer/license/trialLicense?product=dbr).
