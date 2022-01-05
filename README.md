@@ -12,12 +12,12 @@ Get the [trial license](https://www.dynamsoft.com/customer/license/trialLicense?
     ``` 
     sudo apt install php-cli php-dev libxml2-dev
     ```
-* Check php version `php -v` and download corresponding [source code]((https://www.php.net/releases/)
+* Check php version `php -v` and download the corresponding [source code](https://www.php.net/releases/)
 * [Dynamsoft Barcode Reader SDK](https://www.dynamsoft.com/barcode-reader/downloads)
 
     ```
     unzip dbr-c_cpp-8.8.zip
-    sudo cp ./dbr-c_cpp-8.8/DynamsoftBarcodeReader/Lib/Linux/*.so /usr/lib/
+    sudo cp DynamsoftBarcodeReader/Lib/Linux/*.so /usr/lib
     ```
 
 ## How to Build the Extension
